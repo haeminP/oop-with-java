@@ -1,0 +1,5 @@
+Flight  DA456 is landing.
+Flight  DA123 is landing.
+Flight  SP333 is landing.
+Flight  AA111 is taking off.
+Flight  AA122 is taking off.
