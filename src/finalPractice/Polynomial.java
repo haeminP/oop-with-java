@@ -76,4 +76,93 @@ public class Polynomial implements Comparable<Polynomial>{
         }
         this.add(temp);
     }
+
+    public static Polynomial subtract (Polynomial p1, Polynomial p2){
+        Polynomial p = new Polynomial(p1);
+        p.subtract(p2);
+        return p;
+    }
+
+    public int getDegree(){
+        return this.degree;
+    }
+
+    public int coefficient(int power){
+        for (int e: this.terms.keySet()){
+            if (e == power){
+                return this.terms.get(e);}
+        }
+        return 0;
+    }
+
+    public void changeCoefficient(int power, int newCoefficient){
+        for (int e: this.terms.keySet()){
+            if (e == power){
+                this.terms.put(e, newCoefficient);
+                return;
+            }
+        }
+    }
+
+    public void removeTerm(int power){
+        this.terms.remove(power);
+    }
+
+    public double evaluate(double x){
+        double v = 0;
+        for (int e : this.terms.keySet()) {
+            v += this.terms.get(e) * Math.pow(x, e);
+        }
+        return v;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof Polynomial){
+            Polynomial p = (Polynomial) obj;
+            return this.terms.equals(p.terms);
+         }
+        return false;
+    }
+    @Override
+    public int compareTo(Polynomial other) {
+        double v1 = this.evaluate(0);
+        double v2 = other.evaluate(0);
+        if (v1 > v2){
+            return 1;
+        } else if (v2 > v1){
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public String toString() {
+        boolean firstTerm = true;
+        StringBuilder s = new StringBuilder();
+        for (Integer power: this.terms.keySet()){
+            int coefficient = this.terms.get(power);
+        if (Math.abs(coefficient) != 0){
+            if(!firstTerm && coefficient >= 0){
+                s.append(" + ");
+            } else if (coefficient < 0) {
+                s.append(" - ");
+            }
+            if (power == 0 || Math.abs(coefficient) != 1){
+                s.append(Math.abs(coefficient));
+            }
+            if(power > 0){
+                s.append("x");
+            }
+            if (power > 1){
+                s.append(power);
+            }
+        }
+        firstTerm = false;
+        }
+        return s.toString();
+    }
+
+
 }
